@@ -1,0 +1,14 @@
+language: generic
+sudo: required
+services:
+  -docker
+
+before_install:
+  # -t is to tag th image good practice is to use repor name in image tag, although this tagged name is used inside of this container you can pick any name, -f is to force the docker to use specified file(Dockerfile.dev)
+  - docker build -t arbin-san/docker-react -f Dockerfile.dev .
+
+# This is to tell travis to run tests
+script:
+  # Old Command
+  # - docker run arbin-san/docker-react npm run test -- --coverage
+  - docker run -e CI=true arbin-san/docker-react npm run test
